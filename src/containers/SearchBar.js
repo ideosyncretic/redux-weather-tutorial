@@ -3,8 +3,8 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { fetchWeather } from '../actions/index'
 
-export default class SearchBar extends Component {
-  constructor(props) {
+class SearchBar extends Component {
+  constructor (props) {
     super(props)
 
     this.state = {
@@ -15,15 +15,17 @@ export default class SearchBar extends Component {
     this.onFormSubmit = this.onFormSubmit.bind(this)
   }
 
-  onInputChange(event) {
+  onInputChange (event) {
     this.setState({term: event.target.value})
   }
 
-  onFormSubmit(event){
+  onFormSubmit (event) {
     event.preventDefault()
+    this.props.fetchWeather(this.state.term)
+    this.setState({ term: '' })
   }
 
-  render() {
+  render () {
     return (
       <form className='input-group'>
         <input
@@ -39,4 +41,11 @@ export default class SearchBar extends Component {
       </form>
     )
   }
+
 }
+function mapDispatchToProps (dispatch) {
+  return bindActionCreators({ fetchWeather }, dispatch)
+}
+
+// null instead of mapStateToProps, we don't need state
+export default connect(null, mapDispatchToProps)(SearchBar)
