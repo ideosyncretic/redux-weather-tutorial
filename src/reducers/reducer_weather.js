@@ -1,9 +1,11 @@
 import { FETCH_WEATHER } from '../actions/index'
 
+// state is array to hold list
 export default function (state = [], action) {
   switch (action.type) {
     case FETCH_WEATHER:
-      return [ action.payload.data, ...this.state ]
+      // console.log(action.payload.data)
+      return [ action.payload.data, ...state ]
   }
   return state
 }
